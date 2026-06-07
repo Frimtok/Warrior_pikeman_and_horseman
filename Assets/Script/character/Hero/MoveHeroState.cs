@@ -11,8 +11,8 @@ public class MoveHeroState : HeroState
     private Hero _hero;
     public MoveHeroState(Hero h, Transform t, float s) : base(h)
     {
-        transform = t;
         _speed = s;
+        transform = t;
         _hero = h;
     }
 
