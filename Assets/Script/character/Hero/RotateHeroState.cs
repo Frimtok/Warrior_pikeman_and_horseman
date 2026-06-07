@@ -30,7 +30,7 @@ public class RotateHeroState : HeroState
             return;
         }
         Vector3 direction = _targetNode.transform.position - _transform.position;
-        direction.y = 0; // отключаем поворот по X и Z
+        direction.y = 0;
 
         if (direction != Vector3.zero)
         {
