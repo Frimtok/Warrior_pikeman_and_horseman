@@ -9,17 +9,17 @@ public class MoveHeroState : HeroState
     private Transform transform;
     private NodeBase _targetNode;
     private Hero _hero;
-    public MoveHeroState(Hero h, Transform t, float s) : base(h)
+    public MoveHeroState(Hero h) : base(h)
     {
-        _speed = s;
-        transform = t;
+        _speed = h.GetSpeed();
+        transform = h.transform;
         _hero = h;
     }
 
     public override void Enter()
     {
         _speed += 0; // Бонусная скорость(пока 0)
-        Debug.Log("idle state Move");
+        Debug.Log("Enter state Move");
     }
     public override void Exit()
     {
@@ -28,12 +28,13 @@ public class MoveHeroState : HeroState
 
     public override void Update() 
     {
-        _targetNode = _hero._hexTargetNow;
+        Debug.Log("Update state Move");
+        _targetNode = ManagerState.GetTargetNode();
         if (_targetNode == null) return;    
         if (Vector3.Distance(transform.position, _targetNode.transform.position) < 0.01f)
         {
-            Debug.Log("OK cell");
             transform.position = _targetNode.transform.position;
+            ManagerState.IncrementIndex();
             _heroesSatet.SetState<IdleHeroState>();
         }
         MoveInNode();

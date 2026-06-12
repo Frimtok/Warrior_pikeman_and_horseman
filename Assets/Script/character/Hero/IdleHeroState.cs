@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class IdleHeroState : HeroState
 {
-    private NodeBase target;
     private Hero h;
     public IdleHeroState(Hero h) : base(h)
     {
@@ -22,11 +21,7 @@ public class IdleHeroState : HeroState
     }
     public override void Update()  
     {
-        target = h._hexTargetNow;
-        if (target !=  null)
-        {
-            _heroesSatet.SetState<RotateHeroState>();
-        }
+        Debug.Log("update state Idle");
     }
 
 }
