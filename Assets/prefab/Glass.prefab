@@ -153,6 +153,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _colorNow: {r: 0, g: 0, b: 0, a: 0}
   _goalNodeBase: {fileID: 0}
+  child: {fileID: 0}
   steep: 0
   Walkable: 1
   _walkable: 1
@@ -234,7 +235,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 945acd46880f10e4489f58ff66f40995, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.38551763, g: 0.9150943, b: 0.23740657, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

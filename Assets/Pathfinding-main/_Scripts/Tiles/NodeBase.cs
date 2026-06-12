@@ -59,22 +59,20 @@ namespace _Scripts.Tiles
         private void OnDisable() => OnHoverTile -= OnOnHoverTile;
         private void OnOnHoverTile(NodeBase selected) => _selected = selected == this;
 
-        protected virtual void OnMouseDown() 
+        protected virtual void OnMouseDown()
         {
             HexGridManager.ResetColor();
-            List<NodeBase> path;
-            Debug.Log("Mouse");
             if (!_walkable) return;
             Debug.Log("nodeBase.Coords.Pos");
-            path = Pathfinding.FindPath(this, _goalNodeBase);
-            now = this; // выбранный 
-            if (path != null)
+            selectedPath = Pathfinding.FindPath(this, _goalNodeBase);
+            if (selectedPath != null)
             {
-                Debug.Log($"SUCCESS! Path found with {path.Count} steps");
+                now = this; // выбранный 
+                Debug.Log($"SUCCESS! Path found with {selectedPath.Count} steps");
 
                 // Визуализация
                 int i = 0;
-                foreach (var node in path)
+                foreach (var node in selectedPath)
                 {
                     i++;
                     if (i <= steep) 

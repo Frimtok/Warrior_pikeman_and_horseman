@@ -1,4 +1,5 @@
 using _Scripts.Tiles;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateHeroState : HeroState
@@ -7,11 +8,11 @@ public class RotateHeroState : HeroState
     NodeBase _targetNode;
     private float rotationSpeed;
     Hero _hero;
-    public RotateHeroState(Hero h, Transform t, float s) : base(h) 
+    public RotateHeroState(Hero h) : base(h) 
     {
-        _transform = t;
+        _transform = h.transform;
         _hero = h;
-        rotationSpeed = s;
+        rotationSpeed = h.SpeedRotate;
     }
     public override void Enter()
     {
@@ -24,7 +25,7 @@ public class RotateHeroState : HeroState
 
     public override void Update()
     {
-        _targetNode = _hero._hexTargetNow;
+        _targetNode = ManagerState.GetTargetNode();
         if (_targetNode == null)
         {
             return;
@@ -39,10 +40,10 @@ public class RotateHeroState : HeroState
 
             _transform.eulerAngles = new Vector3(-90, _transform.eulerAngles.y, _transform.eulerAngles.z);
         }
-        float angleDiff = Mathf.Abs(_targetNode.transform.eulerAngles.y - _transform.eulerAngles.y);
+        float angleDiff = Mathf.Abs(_targetNode.transform.eulerAngles.y - _hero.transform.eulerAngles.y);
         if (angleDiff < 0.5f)
         {
-            _heroesSatet.SetState<RotateHeroState>();
+            _heroesSatet.SetState<IdleHeroState>();
         }
     }
 }

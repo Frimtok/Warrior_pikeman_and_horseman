@@ -8,16 +8,15 @@ using _Scripts.Tiles;
 public abstract class Hero : MonoBehaviour
 {
     [SerializeField] private int _health;
-    [SerializeField] public float Speed;
+    [SerializeField] private float _speed;
     [SerializeField] public float SpeedRotate;
-    [SerializeField] public NodeBase _hexTargetEnd;
-    [SerializeField] public NodeBase _hexTargetNow;
     private HeroState StateCurr { get; set; }
     private Dictionary<Type, HeroState> _state = new Dictionary<Type, HeroState>();
     public void AddSatte(HeroState state) 
     {
         _state.Add(state.GetType(), state);
     }
+    public HeroState CurrentState => StateCurr;
     public void SetState<T>() where T : HeroState 
     {
         var t = typeof(T);
@@ -30,9 +29,22 @@ public abstract class Hero : MonoBehaviour
 
         }
     }
+    public void Start()
+    {
+        AddSatte(new MoveHeroState(this));
+        AddSatte(new IdleHeroState(this));
+        AddSatte(new RotateHeroState(this));
+        // ManagerMove.Instance.MoveCommande += MoveAlongPath;
+        SetState<IdleHeroState>();
+    }
+
     public void Update()
     {
-        _hexTargetEnd = HexNode.now;
         StateCurr?.Update();
+    }
+
+    public float GetSpeed() 
+    {
+        return _speed;
     }
 }
